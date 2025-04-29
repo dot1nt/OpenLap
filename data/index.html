@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/bulma.min.css" />
+    
+		<link href="./_app/immutable/assets/2.D-q3Hcvt.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.1ACd239c.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BkJ_vBRF.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DOBx03_B.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BhShRhLK.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.B_vv00t6.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BgXwe5a4.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/D04mQSgk.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/FE4hK4X4.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.JSgH4-1O.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.lqY6ziQO.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/ChnCWY3r.js"><!--[--><!--]--><title>OpenLap</title>
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"><!--[--><!--[--><!----><!----><section class="section" style="padding-top: 1rem; padding-bottom: 1rem;"><div class="container"><div class="columns is-mobile is-variable is-1"><div class="column has-text-left"><div class="buttons" style="display: flex; align-items: center;"><button class="button">Start</button><!----></div></div> <div class="column has-text-right is-narrow"><button id="openModal" class="button">Settings</button></div></div></div></section> <section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;"><div class="container"><div class="box" style="margin-top: 1rem;"><div class="columns is-vcentered is-mobile"><div class="column"><h2 class="subtitle">Laps</h2></div> <div class="column has-text-right"><h2 class="has-text-weight-bold"></h2><!----></div></div> <table class="table is-fullwidth is-striped"><thead><tr><th>Lap Number</th><th class="is-narrow">Time (Seconds)</th></tr></thead><tbody><!--[--><!--]--></tbody></table></div><!----></div></section> <div id="configModal" class="modal "><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Configuration</p></header> <section class="modal-card-body"><div class="columns is-vcentered is-mobile"><div class="column is-narrow"><button id="calibrateButton" class="button ">Calibrate</button></div> <div class="column has-text-right"><span id="calibrationRssiText">RSSI: 0</span></div></div> <hr class="my-5"> <div class="columns is-mobile"><div class="field column is-narrow"><label for="bandSelect" class="label">Band</label> <div class="control"><div class="select"><select id="bandSelect"><!--[--><option value="0">A</option><option value="1">B</option><option value="2">E</option><option value="3">Fatshark</option><option value="4">Raceband</option><!--]--></select></div></div></div> <div class="field column"><label for="channelSelect" class="label">Channel</label> <div class="control"><div class="select"><select id="channelSelect"><!--[--><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option><option value="4">5</option><option value="5">6</option><option value="6">7</option><option value="7">8</option><!--]--></select></div></div></div> <div class="field column is-narrow is-flex is-align-items-center"><button id="saveButton" class="button is-link">Save</button></div></div> <hr class="my-5"> <div class="columns is-vcentered"><div class="column"><label for="minLapTimeSlider" class="label">Minimum Lap Time (Seconds)</label> <input id="minLapTimeSlider" class="input spinner-input" type="number" step="1" min="0" max="100" value="3"></div></div> <div class="columns is-vcentered"><div class="column"><label for="lapNumberSlider" class="label">Lap Number</label> <input id="lapNumberSlider" class="input spinner-input" type="number" step="1" min="0" max="100" value="3"></div></div> <div class="columns is-vcentered"><div class="column"><label for="minLapTimeSlider" class="label">Start Countdown (Seconds)</label> <input id="minLapTimeSlider" class="input spinner-input" type="number" step="1" min="0" max="100" value="5"></div></div> <hr class="my-5"> <div class="field"><label class="checkbox"><input id="audioBeepToggle" type="checkbox" checked> Audio Beep</label></div> <div class="field"><label class="checkbox"><input id="announcerToggle" type="checkbox" checked> Announcer</label></div></section> <footer class="modal-card-foot"><button class="button">Close</button></footer></div></div><!----> <div class="modal " id="raceEndModal"><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">🏁 Race End</p></header> <section class="modal-card-body"><div class="content"><p><strong>🏁 Race Time:</strong> <span>0</span> seconds</p> <p><strong>⏱️ Average Lap:</strong> <span>0</span> seconds</p> <p><strong>🚀 Fastest Lap:</strong> <span>0</span> seconds</p> <p><strong>🐢 Slowest Lap:</strong> <span>0</span> seconds</p></div></section> <footer class="modal-card-foot"><button class="button">Close</button></footer></div></div><!----> <div class="modal " id="raceEndModal"><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">🚫 False Start</p></header> <section class="modal-card-body"><div class="content"></div></section> <footer class="modal-card-foot"><button class="button">Close</button></footer></div></div><!----> <!--[!--><!--]--><!----><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_qzwg8n = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./_app/immutable/entry/start.1ACd239c.js"),
+						import("./_app/immutable/entry/app.B_vv00t6.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
