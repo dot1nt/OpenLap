@@ -7,6 +7,7 @@
   let avgLapTime = 0;
   let minLapTime = 0;
   let maxLapTime = 0;
+  let best3Consec = 0;
 
   function onCloseButton() {
     open = false;
@@ -34,11 +35,22 @@
           lapDurations.reduce((a, b) => a + b, 0) / lapDurations.length;
         minLapTime = Math.min(...lapDurations);
         maxLapTime = Math.max(...lapDurations);
+
+        if (lapDurations.length >= 3) {
+          best3Consec = Infinity;
+          for (let i = 0; i <= lapDurations.length - 3; i++) {
+            const sum = lapDurations[i] + lapDurations[i + 1] + lapDurations[i + 2];
+            if (sum < best3Consec) best3Consec = sum;
+          }
+        } else {
+          best3Consec = 0;
+        }
       } else {
         raceTime = 0;
         avgLapTime = 0;
         minLapTime = 0;
         maxLapTime = 0;
+        best3Consec = 0;
       }
 
       open = true;
@@ -66,6 +78,11 @@
         <p>
           <strong>🐢 Slowest Lap:</strong> <span>{round(maxLapTime)}</span> seconds
         </p>
+        {#if best3Consec !== 0}
+          <p>
+            <strong>🏆 Fastest 3-Consecutive Laps:</strong> <span>{round(best3Consec)}</span> seconds
+          </p>
+        {/if}
       </div>
     </section>
     <footer class="modal-card-foot">
