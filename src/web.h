@@ -36,6 +36,7 @@ class WebSocketHandler : public Task<WebSocketHandler> {
   void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
 
   void sendRssiData(int value);
+  void sendBatteryData(int value);
   void sendState(int raceState, const std::vector<unsigned long> &lapTimes, uint16_t frequency);
 
   void addListener(QueueHandle_t queue);

@@ -29,6 +29,21 @@ Settings are in `src/config.h`.
 If you are not using the standard ESP32 developement board, you can change the board type in the `platformio.ini` file.
 Here are the board types supported by platformio that might work: https://docs.platformio.org/en/latest/boards/index.html#espressif-32
 
+### Battery Monitoring
+
+The ESP32 has a 3.3V input voltage limit, so it's not safe to connect the battery directly to read the voltage. 
+To bring the voltage down to a safe level, you can use a [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider) consisting of two resistors to step down the voltage before it reaches the ESP32.
+
+You can configure the resistor values for the voltage divider by adjusting `R1` and `R2` in `src/config.h`.
+You can use this [calculator](https://ohmslawcalculator.com/voltage-divider-calculator) to select suitable resistor values.
+For a 4s battery, safe resistor values could be `100kOhm` for R1 and `20kOhm` for R2.
+
+To enable battery monitoring:
+1. Set `ENABLE_BATTERY_MONITORING` to `true`.
+2. Set the pin where the voltage divider is connected by modifying `BATTERY_PIN` (this needs to be an analog input).
+
+Additionally, you can set a minimum voltage threshold in the web page settings to receive a notification when the battery voltage drops below this level.
+
 # Usage  
 The ESP32 opens a Wi-Fi AP you can connect to. Wi-Fi name and password can be changed in `src/config.h`. The default password is `Laptimer`.
 To access the app, open `http://192.168.4.1` in your browser.  

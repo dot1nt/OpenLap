@@ -6,12 +6,14 @@
   import {
     configModalOpen,
     frequency,
+    minBatteryVoltage,
     minLapTime,
     lapNumber,
     maxRaceStartCountdown,
     enableAudioBeep,
     enableAnnouncer,
     rssiData,
+    batteryVoltage,
   } from "../stores/State.js";
 
   const freqLookup = [
@@ -28,8 +30,6 @@
 
   let band = 0;
   let channel = 0;
-
-  let rssi = 0;
 
   let saveButtonText = "Save";
   let calibrating = false;
@@ -74,8 +74,6 @@
   frequency.subscribe((freq) => {
     [band, channel] = getBandAndChannel(freq);
   });
-
-  $: rssi = $rssiData;
 </script>
 
 <div id="configModal" class="modal {$configModalOpen ? 'is-active' : ''}">
@@ -94,9 +92,10 @@
           >
         </div>
         <div class="column has-text-right">
-          <span id="calibrationRssiText">RSSI: {rssi}</span>
+          <span id="calibrationRssiText">RSSI: {$rssiData}</span>
         </div>
       </div>
+
       <hr class="my-5" />
       <div class="columns is-mobile">
         <div class="field column is-narrow">
@@ -199,9 +198,41 @@
           Announcer
         </label>
       </div>
+
+      {#if $batteryVoltage !== 0}
+        <hr class="my-5" />
+        <div class="columns is-vcentered is-mobile">
+          <div class="column is-narrow">
+            <label for="batteryVoltageInput" class="label">Minimum Battery Voltage</label>
+            <input
+              id="batteryVoltageInput"
+              class="input"
+              type="number"
+              min="0"
+              max="50"
+              bind:value={$minBatteryVoltage}
+            />
+          </div>
+          <div class="column has-text-right">
+            <span>{Math.round($batteryVoltage / 10) / 100} V</span>
+          </div>
+        </div>
+      {/if}
     </section>
     <footer class="modal-card-foot">
       <button class="button" on:click={onCloseButton}>Close</button>
     </footer>
   </div>
 </div>
+
+<style>
+  #batteryVoltageInput::-webkit-outer-spin-button,
+  #batteryVoltageInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  #batteryVoltageInput {
+    appearance: textfield;
+  }
+</style>

@@ -7,9 +7,7 @@ WebSocketHandler::WebSocketHandler() : Task("WebSocketHandler", 2048, 1) {
   m_ws.onEvent([this](auto... args) { this->onEvent(args...); });
 }
 
-AsyncWebSocket *WebSocketHandler::getSocket() {
-  return &m_ws;
-}
+AsyncWebSocket *WebSocketHandler::getSocket() { return &m_ws; }
 
 void WebSocketHandler::run() {
   for (;;) {
@@ -76,7 +74,18 @@ void WebSocketHandler::sendRssiData(int value) {
   JsonDocument json;
   String jsonStr;
 
-  json["event"] = "data";
+  json["event"] = "rssi";
+  json["value"] = value;
+
+  serializeJson(json, jsonStr);
+  m_ws.textAll(jsonStr);
+}
+
+void WebSocketHandler::sendBatteryData(int value) {
+  JsonDocument json;
+  String jsonStr;
+
+  json["event"] = "battery";
   json["value"] = value;
 
   serializeJson(json, jsonStr);

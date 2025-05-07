@@ -6,11 +6,16 @@ export function openConfigModal() {
 }
 
 export const rssiData = writable(0);
+export const batteryVoltage = writable(0);
 export const lapTimes = writable([]);
 export const raceState = writable(0); // 0 ready, 1 waiting for countdown, 2 running, 3 finished, 4 false start
 
 export const frequency = writable(5732);
 
+export const minBatteryVoltage = persistentWritable<number>(
+  "minBatteryVoltage",
+  11.1,
+);
 export const minLapTime = persistentWritable<number>("minLapTime", 3);
 export const lapNumber = persistentWritable<number>("lapNumber", 3);
 export const maxRaceStartCountdown = persistentWritable<number>(

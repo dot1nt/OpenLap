@@ -6,7 +6,8 @@
   import LapTable from "../components/LapTable.svelte";
   import RaceEndModal from "../components/RaceEndModal.svelte";
   import FalseStartModal from "../components/RaceFalseStartModal.svelte";
-  import ErrorNotification from "../components/ErrorNotification.svelte";
+  import Notification from "../components/Notification.svelte";
+  import BatteryVoltageWarning from "../components/BatteryVoltageWarning.svelte";
 
   import { openConfigModal } from "../stores/State.js";
   import { connectWebSocket } from "../stores/WebSocketStore.js";
@@ -55,7 +56,10 @@
 <RaceEndModal />
 <FalseStartModal />
 
-<ErrorNotification
-  errorMessage={currentErrorMessage}
+<Notification
+  message={currentErrorMessage}
   close={() => (currentErrorMessage = "")}
+  type="danger"
 />
+
+<BatteryVoltageWarning />

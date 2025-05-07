@@ -20,7 +20,8 @@ RaceManager raceManager;
 AsyncWebServer server(80);
 WebSocketHandler webSocketHandler;
 QueueHandle_t xWebSocketMessageQueue;
-unsigned long lastWebSocketMessage;
+unsigned long lastRssiWebSocketMessage;
+unsigned long lastBatteryWebSocketMessage;
 
 void calibrateReceiver() {
   int sum = 0;
@@ -56,9 +57,17 @@ void vTask(void *pvParameters) {
     int rssi = rx.readRssi();
     int filteredRssi = filter.process(rssi);
 
-    if (millis() - lastWebSocketMessage > Config::WEBSOCKET_UPDATE_INTERVAL) {
-      lastWebSocketMessage = millis();
+    if (millis() - lastRssiWebSocketMessage > Config::RSSI_UPDATE_INTERVAL) {
+      lastRssiWebSocketMessage = millis();
       webSocketHandler.sendRssiData(filteredRssi);
+    }
+
+    if (millis() - lastBatteryWebSocketMessage > Config::BATTERY_UPDATE_INTERVAL && Config::ENABLE_BATTERY_MONITORING) {
+      lastBatteryWebSocketMessage = millis();
+      int batteryVoltage = analogRead(Config::BATTERY_PIN);
+      int batteryVoltageScaled = batteryVoltage * 3.3 / 4095 * (Config::R1 + Config::R2) / Config::R2 * 1000;
+
+      webSocketHandler.sendBatteryData(batteryVoltageScaled);
     }
 
     std::optional<PeakDetector::TimeValue> peak = peakDetector.addData(filteredRssi, millis());

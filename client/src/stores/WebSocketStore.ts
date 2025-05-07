@@ -1,4 +1,10 @@
-import { rssiData, lapTimes, raceState, frequency } from "./State";
+import {
+  rssiData,
+  lapTimes,
+  raceState,
+  frequency,
+  batteryVoltage,
+} from "./State";
 
 let socket: WebSocket;
 
@@ -22,8 +28,12 @@ function onMessage(event: MessageEvent) {
   const json = JSON.parse(event.data);
 
   switch (json.event) {
-    case "data":
+    case "rssi":
       rssiData.set(json.value);
+      break;
+
+    case "battery":
+      batteryVoltage.set(json.value);
       break;
 
     case "state":
