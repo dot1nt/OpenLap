@@ -102,7 +102,6 @@ void vHandleWebSocketMessages(void *pvParameters) {
 
           case WebSocketHandler::Command::STOP_RACE:
             raceManager.stopRace();
-            sendStateToWebsocket();
             break;
 
           default:

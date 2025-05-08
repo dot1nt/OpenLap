@@ -24,7 +24,7 @@ void RaceManager::startRace(uint16_t lapNumber, uint16_t maxRaceStartCountdown, 
 }
 
 void RaceManager::stopRace() {
-  m_raceState = RaceState::READY;
+  m_raceState = RaceState::FINISHED;
   if (m_onRaceEnd) {
     m_onRaceEnd();
   }
