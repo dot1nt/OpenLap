@@ -8,6 +8,7 @@
   let minLapTime = 0;
   let maxLapTime = 0;
   let best3Consec = 0;
+  let consistency = 0;
 
   function onCloseButton() {
     open = false;
@@ -18,7 +19,7 @@
   }
 
   raceState.subscribe((state) => {
-    if (state == 3) {
+    if (state == 3 && $lapTimes.length > 2) {
       playAnnouncer("Race finished");
 
       const laps = $lapTimes;
@@ -36,6 +37,10 @@
         minLapTime = Math.min(...lapDurations);
         maxLapTime = Math.max(...lapDurations);
 
+        const variance = lapDurations.reduce((sum, t) => sum + (t - avgLapTime) ** 2, 0) / lapDurations.length;
+        const stdDev = Math.sqrt(variance);
+        consistency = Math.round((1 - stdDev / avgLapTime) * 100);
+
         if (lapDurations.length >= 3) {
           best3Consec = Infinity;
           for (let i = 0; i <= lapDurations.length - 3; i++) {
@@ -45,12 +50,6 @@
         } else {
           best3Consec = 0;
         }
-      } else {
-        raceTime = 0;
-        avgLapTime = 0;
-        minLapTime = 0;
-        maxLapTime = 0;
-        best3Consec = 0;
       }
 
       open = true;
@@ -67,16 +66,19 @@
     <section class="modal-card-body">
       <div class="content">
         <p>
-          <strong>🏁 Race Time:</strong> <span>{round(raceTime)}</span> seconds
+          <strong>🏁 Race Time:</strong> {round(raceTime)} seconds
         </p>
         <p>
-          <strong>⏱️ Average Lap:</strong> <span>{round(avgLapTime)}</span> seconds
+          <strong>⏱️ Average Lap:</strong> {round(avgLapTime)} seconds
         </p>
         <p>
-          <strong>🚀 Fastest Lap:</strong> <span>{round(minLapTime)}</span> seconds
+          <strong>🎯 Consistency:</strong> {consistency}%
         </p>
         <p>
-          <strong>🐢 Slowest Lap:</strong> <span>{round(maxLapTime)}</span> seconds
+          <strong>🚀 Fastest Lap:</strong> {round(minLapTime)} seconds
+        </p>
+        <p>
+          <strong>🐢 Slowest Lap:</strong> {round(maxLapTime)} seconds
         </p>
         {#if best3Consec !== 0}
           <p>
